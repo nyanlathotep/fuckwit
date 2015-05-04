@@ -7,10 +7,6 @@ def p_ops_ops_reduce(p):
   'ops : ops ops'
   p[0] = p[1] + p[2]
 
-def p_ops_op_reduce(p):
-  'ops : ops op'
-  p[0] = p[1] + [p[2]]
-
 def p_ops_op(p):
   'ops : op'
   p[0] = [p[1]]
