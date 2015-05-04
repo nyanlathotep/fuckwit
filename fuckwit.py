@@ -39,19 +39,19 @@ ptr = 0
 
 while ip != len(ops):
   op = ops[ip]
-  if op[0] == 'v':
+  if op[0] == 0:
     mem[ptr] += op[1]
-  elif op[0] == 'p':
+  elif op[0] == 1:
     ptr = (ptr + op[1]) % memsize
-  elif op[0] == 'i':
+  elif op[0] == 3:
     mem[ptr] = getch()
-  elif op[0] == 'o':
+  elif op[0] == 4:
     c = mem[ptr]
     if c > 31 and c < 127:
       sys.stdout.write(chr(c))
     if c == 10 or c == 13:
       sys.stdout.write('\n')
-  elif op[0] == 'l':
+  elif op[0] == 2:
     if (mem[ptr] == 0) == op[1]:
       ip += op[2]
   ip += 1

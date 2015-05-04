@@ -14,7 +14,7 @@ def p_ops_op(p):
 def p_ops_loop(p):
   'ops : ops LOOPS ops LOOPE'
   d = len(p[3])+1
-  p[0] = p[1] + [['l', True, d]] + p[3] + [['l', False, -d]]
+  p[0] = p[1] + [[2, True, d]] + p[3] + [[2, False, -d]]
 
 def p_op_val(p):
   'op : val'
@@ -32,7 +32,7 @@ def p_val_ID_reduce(p):
 def p_val_ID(p):
   '''val : INCR
          | DECR'''
-  p[0] = ['v', p[1]]
+  p[0] = [0, p[1]]
 
 def p_ptr_FB_reduce(p):
   '''val : ptr FRWD
@@ -42,15 +42,15 @@ def p_ptr_FB_reduce(p):
 def p_ptr_FB(p):
   '''ptr : FRWD
          | BKWD'''
-  p[0] = ['p', p[1]]
+  p[0] = [1, p[1]]
 
 def p_op_IN(p):
   'op  : IN'
-  p[0] = ['i']
+  p[0] = [3]
 
 def p_op_OUT(p):
   'op  : OUT'
-  p[0] = ['o']
+  p[0] = [4]
 
 def p_error(p):
   print(p)
