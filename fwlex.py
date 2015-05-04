@@ -13,8 +13,8 @@ tokens = (
   "OUT"
 )
 
-t_LOOPS = '\\['
-t_LOOPE = '\\]'
+t_LOOPS = r'\['
+t_LOOPE = r'\]'
 t_IN = r','
 t_OUT = r'\.'
 t_ignore_COMMENT = r'[^\[\]\-+<>,.]+'

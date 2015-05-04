@@ -53,8 +53,12 @@ def p_op_OUT(p):
   p[0] = [4]
 
 def p_error(p):
-  print(p)
-  parser.errok()
+  if p == None:
+    raise SyntaxError, 'unexpected end of file while parsing'
+  elif p.type == "LOOPE":
+    raise SyntaxError, 'mismatched ]'
+  else:
+    raise SyntaxError, 'unknown syntax error, ' + str(p)
 
 parser = yacc.yacc()
 
