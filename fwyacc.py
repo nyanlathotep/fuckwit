@@ -3,6 +3,10 @@
 import ply.yacc as yacc
 from fwlex import tokens
 
+def p_ops_ops_reduce(p):
+  'ops : ops ops'
+  p[0] = p[1] + p[2]
+
 def p_ops_op_reduce(p):
   'ops : ops op'
   p[0] = p[1] + [p[2]]
@@ -12,9 +16,9 @@ def p_ops_op(p):
   p[0] = [p[1]]
 
 def p_ops_loop(p):
-  'ops : ops LOOPS ops LOOPE'
-  d = len(p[3])+1
-  p[0] = p[1] + [[2, True, d]] + p[3] + [[2, False, -d]]
+  'ops : LOOPS ops LOOPE'
+  d = len(p[2])+1
+  p[0] = [[2, True, d]] + p[2] + [[2, False, -d]]
 
 def p_op_val(p):
   'op : val'
@@ -35,7 +39,7 @@ def p_val_ID(p):
   p[0] = [0, p[1]]
 
 def p_ptr_FB_reduce(p):
-  '''val : ptr FRWD
+  '''ptr : ptr FRWD
          | ptr BKWD'''
   p[0] = [p[1][0], p[1][1] + p[2]]
 
@@ -63,8 +67,11 @@ def p_error(p):
 parser = yacc.yacc()
 
 if __name__ == '__main__' :
-  fp = open('hello.bf')
+  import sys
+  sys.stderr = open('yacc_debug.txt', 'w')
+  fp = open('beer.bf')
   dat = fp.read()
   fp.close()
   ops = parser.parse(dat, debug = True)
   print(ops)
+  sys.stderr.close()
